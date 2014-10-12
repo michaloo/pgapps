@@ -1,0 +1,20 @@
+containers:
+    pgapps_it:
+        image: michaloo/pgresty
+        dockerfile: .
+        run:
+            publish:
+            - "5432:5432"
+            - "80:80"
+            - "443:443"
+            volume:
+            - ".:/pgresty"
+            env-file:
+            - ".env"
+            workdir: /pgresty
+            interactive: true
+            tty: true
+            rm: true
+            cmd:
+            - -c
+            - bash
