@@ -35,42 +35,41 @@ RUN echo 'deb http://ppa.launchpad.net/chris-lea/node.js/ubuntu trusty main' > /
     apt-get install nodejs -y && \
     npm install -g plv8x
 
-RUN apt-get install libreadline-dev libncurses5-dev libpcre3-dev libssl-dev perl make && \
-	curl http://openresty.org/download/ngx_openresty-1.7.2.1.tar.gz | tar -zx && \
-	cd ngx_openresty-1.7.2.1/ && \
-	./configure \
-    --with-http_postgres_module \
-    --with-pcre-jit \
-    --with-ipv6 \
-	--with-http_stub_status_module \
-    --with-http_ssl_module \
-    --with-http_realip_module \
-    --without-http_fastcgi_module \
-    --without-http_uwsgi_module \
-    --without-http_scgi_module \
-	--with-http_addition_module \
-	--with-http_auth_request_module \
-	--without-lua_resty_memcached \
-	--without-lua_resty_redis \
-	--without-lua_resty_mysql \
-	--with-http_stub_status_module && \
-	make && \
-	make install && \
-	rm -rf /ngx_openresty*
+# RUN apt-get install libreadline-dev libncurses5-dev libpcre3-dev libssl-dev perl make && \
+# 	curl http://openresty.org/download/ngx_openresty-1.7.2.1.tar.gz | tar -zx && \
+# 	cd ngx_openresty-1.7.2.1/ && \
+# 	./configure \
+#     --with-http_postgres_module \
+#     --with-pcre-jit \
+#     --with-ipv6 \
+# 	--with-http_stub_status_module \
+#     --with-http_ssl_module \
+#     --with-http_realip_module \
+#     --without-http_fastcgi_module \
+#     --without-http_uwsgi_module \
+#     --without-http_scgi_module \
+# 	--with-http_addition_module \
+# 	--with-http_auth_request_module \
+# 	--without-lua_resty_memcached \
+# 	--without-lua_resty_redis \
+# 	--without-lua_resty_mysql \
+# 	--with-http_stub_status_module && \
+# 	make && \
+# 	make install && \
+# 	rm -rf /ngx_openresty*
 
 RUN mkdir -p /var/run/postgresql && chown -R postgres /var/run/postgresql
 ENV PATH /usr/lib/postgresql/9.3/bin:$PATH
 ENV PGDATA /var/lib/postgresql/data
 VOLUME /var/lib/postgresql/data
 
-RUN echo "\ndaemon off;" >> /usr/local/openresty/nginx/conf/nginx.conf
+#RUN echo "\ndaemon off;" >> /usr/local/openresty/nginx/conf/nginx.conf
 
-COPY ./start.sh /pgresty/start.sh
-COPY ./start_postgres.sh /pgresty/start_postgres.sh
+COPY . /pgapps
 
 ENTRYPOINT ["/bin/bash"]
 
 EXPOSE 5432
 EXPOSE 80
 EXPOSE 443
-CMD ["/pgresty/start.sh", "postgres"]
+CMD ["/pgapps/start.sh"]

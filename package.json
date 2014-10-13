@@ -1,0 +1,22 @@
+{
+  "name": "pgapps",
+  "version": "0.0.1",
+  "description": "CouchApp implemented in Postgres and NodeJS",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/michaloo/pgapps.git"
+  },
+  "author": "Michal Raczka <me@michaloo.net>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/michaloo/pgapps/issues"
+  },
+  "homepage": "https://github.com/michaloo/pgapps",
+  "dependencies": {
+    "pg": "^3.5.0"
+  }
+}

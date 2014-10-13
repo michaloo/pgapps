@@ -1,6 +1,15 @@
 containers:
+    pgapps:
+        image: michaloo/pgapps
+        dockerfile: .
+        run:
+            detach: true
+            publish:
+            - "5432:5432"
+            - "80:80"
+            - "443:443"
     pgapps_it:
-        image: michaloo/pgresty
+        image: michaloo/pgapps
         dockerfile: .
         run:
             publish:
@@ -8,10 +17,10 @@ containers:
             - "80:80"
             - "443:443"
             volume:
-            - ".:/pgresty"
+            - ".:/pgapps"
             env-file:
             - ".env"
-            workdir: /pgresty
+            workdir: /pgapps
             interactive: true
             tty: true
             rm: true
